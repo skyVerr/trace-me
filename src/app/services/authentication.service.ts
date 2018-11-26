@@ -12,4 +12,16 @@ export class AuthenticationService {
   signUp(user){
     return this.http.post(Api.API_URL+'sign-up',user);
   }
+
+  login(user){
+    return this.http.post(Api.API_URL+'login',user);
+  }
+
+  loggedIn():boolean{
+    return !!localStorage.getItem('token');
+  }
+
+  getToken(){
+    return localStorage.getItem('token');
+  }
 }
