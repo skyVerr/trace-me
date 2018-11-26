@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Notification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngIf="notifications">
+    <!-- <ion-item>
+      <ion-label>
+        <h2>Contact notification</h2>
+        <p>Fucasdf wants to add you as contact</p>
+      </ion-label>
+      <ion-buttons float-right>
+        <ion-button>Confirm</ion-button>
+        <ion-button>Decline</ion-button>
+      </ion-buttons>
+    </ion-item> -->
+    <notification-list *ngFor="let n of notifications" [notification]="n"></notification-list>
+  </ion-list>
+</ion-content>

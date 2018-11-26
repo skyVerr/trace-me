@@ -17,6 +17,8 @@ import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { AuthenticationService } from "./services/authentication.service";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { AuthGuard } from './auth.guard';
+import { NotificationService } from "./services/notification.service";
+import { ContactsService } from "./services/contacts.service";
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { AuthGuard } from './auth.guard';
       useClass: TokenInterceptorService,
       multi: true
     },
-    AuthGuard
+    AuthGuard,
+    NotificationService,
+    ContactsService
   ],
   bootstrap: [AppComponent]
 })

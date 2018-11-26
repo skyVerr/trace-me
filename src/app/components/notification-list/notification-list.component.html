@@ -1,0 +1,10 @@
+<ion-item *ngIf="notification">
+  <ion-label>
+    <h2>{{ type }}</h2>
+    <p>{{ message }}</p>
+  </ion-label>
+  <ion-buttons text-right *ngIf="!notification.isConfirm">
+    <ion-button>Confirm</ion-button>
+    <ion-button>Decline</ion-button>
+  </ion-buttons>
+</ion-item>

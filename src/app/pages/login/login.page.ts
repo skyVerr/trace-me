@@ -28,7 +28,6 @@ export class LoginPage implements OnInit {
       this.menu.enable(true);
       this.router.navigate(['/home']);
     }, err=>{
-      console.log('pasok?');
       this.presentAlert();
       f.reset();
     });

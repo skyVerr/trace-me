@@ -16,9 +16,14 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'First',
-      url: '/first',
-      icon: 'home'
+      title: 'Contacts',
+      url: '/contacts',
+      icon: 'contacts'
+    },
+    {
+      title: 'Notifications',
+      url: '/notification',
+      icon: 'notifications'
     }
   ];
   constructor(
