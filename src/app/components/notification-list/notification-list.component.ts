@@ -17,6 +17,7 @@ export class NotificationListComponent implements OnInit {
   type:String;
   user: User;
   from: User;
+
   constructor(
     private userService:UserService,
     private notiTypeService:NotificationTypeService

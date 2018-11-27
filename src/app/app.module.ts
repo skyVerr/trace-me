@@ -13,22 +13,30 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 
+//Socket io
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
+
 //Services
 import { AuthenticationService } from "./services/authentication.service";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { AuthGuard } from './auth.guard';
 import { NotificationService } from "./services/notification.service";
 import { ContactsService } from "./services/contacts.service";
+import { SocketService } from "./services/socket.service";
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    FormsModule],
+    FormsModule,
+    SocketIoModule.forRoot(config) 
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -42,7 +50,8 @@ import { ContactsService } from "./services/contacts.service";
     },
     AuthGuard,
     NotificationService,
-    ContactsService
+    ContactsService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

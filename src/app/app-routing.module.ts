@@ -7,9 +7,9 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule', canActivate: [AuthGuard] },
   { path: 'sign-up', loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  { path: 'contacts', loadChildren: './pages/contacts/contacts.module#ContactsPageModule' },
-  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
-  { path: 'notification', loadChildren: './pages/notification/notification.module#NotificationPageModule' }
+  { path: 'contacts', loadChildren: './pages/contacts/contacts.module#ContactsPageModule', canActivate: [AuthGuard] },
+  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule', canActivate: [AuthGuard] },
+  { path: 'notification', loadChildren: './pages/notification/notification.module#NotificationPageModule', canActivate: [AuthGuard] }
 ];
 
 @NgModule({
