@@ -35,6 +35,9 @@ export class AppComponent {
     private socketService: SocketService
   ) {
     this.initializeApp();
+    this.socketService.newNotification().subscribe(data=>{
+      console.log(data);
+    });
   }
 
   initializeApp() {
