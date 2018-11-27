@@ -18,4 +18,8 @@ export class ContactsService {
   getContacts():Observable<Contact[]>{
     return this.http.get<Contact[]>(Api.API_URL+'contacts');
   }
+
+  postContactConfirm(notification){
+    return this.http.post(Api.API_URL+'contacts/confirm',notification);
+  }
 }

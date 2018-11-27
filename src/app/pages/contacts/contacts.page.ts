@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ContactsService } from '../../services/contacts.service';
 import { Contact } from '../../entities/contact.class';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-contacts',
@@ -14,15 +15,22 @@ export class ContactsPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private contactsService: ContactsService
-    ) { }
+    private contactsService: ContactsService,
+    private socketService: SocketService
+    ) { 
+    this.socketService.newNotification().subscribe(data=>{
+      this.loadContacts();
+    });
+  }
 
   ngOnInit() {
+    this.loadContacts();
+  }
 
+  private loadContacts(){
     this.contactsService.getContacts().subscribe(res=>{
       this.contacts = res;
     });
-
   }
 
   async presentAlertPrompt() {

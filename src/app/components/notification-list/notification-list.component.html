@@ -4,7 +4,7 @@
     <p>{{ message }}</p>
   </ion-label>
   <ion-buttons text-right *ngIf="!notification.isConfirm">
-    <ion-button>Confirm</ion-button>
+    <ion-button (click)="confirm()" >Confirm</ion-button>
     <ion-button>Decline</ion-button>
   </ion-buttons>
 </ion-item>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SocketService } from "./services/socket.service";
@@ -26,17 +26,23 @@ export class AppComponent {
       title: 'Notifications',
       url: '/notification',
       icon: 'notifications'
+    },
+    {
+      title: 'Logout',
+      url: '/logout',
+      icon: 'logout'
     }
   ];
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private toastController: ToastController
   ) {
     this.initializeApp();
     this.socketService.newNotification().subscribe(data=>{
-      console.log(data);
+      this.presentToast(data.notification);
     });
   }
 
@@ -45,5 +51,13 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 }

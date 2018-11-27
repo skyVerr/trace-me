@@ -4,6 +4,7 @@ import { Input } from "@angular/core";
 import { NotificationTypeService } from '../../services/notification-type.service';
 import { Notification } from '../../entities/notification.class';
 import { User } from '../../entities/user.class';
+import { ContactsService } from '../../services/contacts.service';
 
 @Component({
   selector: 'notification-list',
@@ -20,7 +21,8 @@ export class NotificationListComponent implements OnInit {
 
   constructor(
     private userService:UserService,
-    private notiTypeService:NotificationTypeService
+    private notiTypeService:NotificationTypeService,
+    private contactService:ContactsService
     ) { }
 
   ngOnInit() {
@@ -36,6 +38,14 @@ export class NotificationListComponent implements OnInit {
         });
     });
   } 
+
+  confirm(){
+    console.log('confirm click');
+    if(this.notification.notification_type_id ==1){
+      this.notification.isConfirm = true;
+      this.contactService.postContactConfirm({notification: this.notification}).subscribe();
+    }
+  }
 
   
 

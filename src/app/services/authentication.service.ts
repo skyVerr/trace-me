@@ -18,6 +18,11 @@ export class AuthenticationService {
     return this.http.post(Api.API_URL+'login',user);
   }
 
+  logout():boolean{
+    localStorage.removeItem('token');
+    return true;
+  }
+
   loggedIn():boolean{
     return !!localStorage.getItem('token');
   }
