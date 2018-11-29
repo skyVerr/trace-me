@@ -18,5 +18,13 @@ export class NotificationService {
     return this.http.get<Notification[]>(Api.API_URL+'notification');
   }
 
+  postNotification(notification){
+    return this.http.post(Api.API_URL+'notification',notification);
+  }
+
+  declineNotification(notification){
+    return this.http.post(Api.API_URL+'notification/decline',notification);
+  }
+
 
 }

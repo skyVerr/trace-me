@@ -16,7 +16,7 @@
 <ion-content padding>
 
   <ion-list *ngIf="contacts; else noContacts">
-    <contact-list *ngFor="let c of contacts" [contact]="c"></contact-list>
+    <contact-list *ngFor="let c of contacts" [contact]="c" (delete)="onDelete()"></contact-list>
   </ion-list>
 
   <ng-template #noContacts>

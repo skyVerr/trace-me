@@ -30,7 +30,7 @@ export class AppComponent {
     {
       title: 'Logout',
       url: '/logout',
-      icon: 'logout'
+      icon: 'power'
     }
   ];
   constructor(
@@ -42,6 +42,10 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.socketService.newNotification().subscribe(data=>{
+      this.presentToast(data.notification);
+    });
+
+    this.socketService.traceReq().subscribe(data=>{
       this.presentToast(data.notification);
     });
   }

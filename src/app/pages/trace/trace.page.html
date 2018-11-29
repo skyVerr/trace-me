@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Trace</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <agm-map [latitude]="lat" [longitude]="lng">
+
+     <agm-marker [latitude]="contactLat" [longitude]="contactLng" >
+       <agm-info-window>{{ contactName }}</agm-info-window>
+     </agm-marker>
+    
+    <agm-marker [latitude]="lat" [longitude]="lng">
+      <agm-info-window>You</agm-info-window>
+    </agm-marker>
+    
+  </agm-map>
+</ion-content>

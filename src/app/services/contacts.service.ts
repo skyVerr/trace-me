@@ -22,4 +22,8 @@ export class ContactsService {
   postContactConfirm(notification){
     return this.http.post(Api.API_URL+'contacts/confirm',notification);
   }
+
+  deleteContact(contact){
+    return this.http.request('delete',Api.API_URL+'contacts',{body: contact});
+  }
 }

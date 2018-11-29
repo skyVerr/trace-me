@@ -3,8 +3,7 @@
     <h2>{{ type }}</h2>
     <p>{{ message }}</p>
   </ion-label>
-  <ion-buttons text-right *ngIf="!notification.isConfirm">
-    <ion-button (click)="confirm()" >Confirm</ion-button>
-    <ion-button>Decline</ion-button>
-  </ion-buttons>
+  <br>
+    <ion-button (click)="confirm()" fill="clear">Confirm</ion-button>
+    <ion-button (click)="decline()"  fill="clear">Decline</ion-button>
 </ion-item>

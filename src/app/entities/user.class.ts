@@ -3,5 +3,5 @@ export class User {
     firstname:string;
     middlename:string;
     lastname:string;
-    userId:number;
+    user_id:number;
 }

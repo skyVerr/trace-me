@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Input } from "@angular/core";
+import { Input, Output } from "@angular/core";
 import { NotificationTypeService } from '../../services/notification-type.service';
 import { Notification } from '../../entities/notification.class';
 import { User } from '../../entities/user.class';
 import { ContactsService } from '../../services/contacts.service';
+import { NotificationService } from '../../services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'notification-list',
@@ -14,6 +16,7 @@ import { ContactsService } from '../../services/contacts.service';
 export class NotificationListComponent implements OnInit {
 
   @Input() notification:Notification;
+  @Output() reload: EventEmitter<any> = new EventEmitter();
   message:String;
   type:String;
   user: User;
@@ -22,7 +25,9 @@ export class NotificationListComponent implements OnInit {
   constructor(
     private userService:UserService,
     private notiTypeService:NotificationTypeService,
-    private contactService:ContactsService
+    private contactService:ContactsService,
+    private notificationService:NotificationService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -40,10 +45,26 @@ export class NotificationListComponent implements OnInit {
   } 
 
   confirm(){
-    console.log('confirm click');
     if(this.notification.notification_type_id ==1){
       this.notification.isConfirm = true;
       this.contactService.postContactConfirm({notification: this.notification}).subscribe();
+    }
+    if(this.notification.notification_type_id ==2){
+      this.notificationService.declineNotification(this.notification).subscribe(data=>{
+        this.router.navigateByUrl('/trace/s'+this.notification.user_id);
+      });
+    }
+  }
+
+  decline(){
+    if(this.notification.notification_type_id ==1){
+      this.notification.isConfirm = false;
+      this.contactService.postContactConfirm({notification: this.notification}).subscribe();
+    }
+    if(this.notification.notification_type_id ==2){
+      this.notificationService.declineNotification(this.notification).subscribe(data=>{
+        this.reload.emit(null);
+      });
     }
   }
 

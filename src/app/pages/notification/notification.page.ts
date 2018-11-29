@@ -10,7 +10,7 @@ import { SocketService } from '../../services/socket.service';
 })
 export class NotificationPage implements OnInit {
 
-  private notifications:Notification[];
+  notifications:Notification[];
 
   constructor(
     private notificationService: NotificationService,
@@ -22,6 +22,10 @@ export class NotificationPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loadNotification();
+  }
+
+  reload(){
     this.loadNotification();
   }
   

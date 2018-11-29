@@ -25,6 +25,8 @@ import { NotificationService } from "./services/notification.service";
 import { ContactsService } from "./services/contacts.service";
 import { SocketService } from "./services/socket.service";
 
+import { Geolocation } from "@ionic-native/geolocation/ngx";
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,7 +53,8 @@ import { SocketService } from "./services/socket.service";
     AuthGuard,
     NotificationService,
     ContactsService,
-    SocketService
+    SocketService,
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })

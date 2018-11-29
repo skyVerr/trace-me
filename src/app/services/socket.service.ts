@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 // import { Socket } from 'ngx-socket-io';
 import * as io from 'socket.io-client';
 import { Api } from "../entities/api.class";
+import { AuthenticationService } from './authentication.service';
+import { User } from '../entities/user.class';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class SocketService {
 
   public socket = io(Api.API_URL);
 
-  constructor() { }
+  constructor(private _auth: AuthenticationService) { }
 
   newNotification(){
     let observable = new Observable<{notification:String}>(observer => {
@@ -21,5 +23,43 @@ export class SocketService {
     });
 
     return observable;
+  }
+
+  joinTrace(traceId){
+   this.socket.emit('join',{traceId, user: this._auth.getDecodeToken().user});
+  }
+
+  userJoin(){
+    let observable = new Observable<{user: User}>(observer => {
+      this.socket.on('user join', (data)=>{
+        observer.next(data);
+      });
+    });
+
+    return observable;
+  }
+
+  traceReq(){
+    let observable = new Observable<{notification:String, body:Notification}>(observer => {
+      this.socket.on('traceReq', (data)=>{
+        observer.next(data);
+      });
+    });
+
+    return observable;
+  }
+
+  receiveLocation(){
+    let observable = new Observable<any>(observer => {
+      this.socket.on('receive location', (data)=>{
+        observer.next(data);
+      });
+    });
+
+    return observable;
+  }
+
+  sendLocation(traceId,location){
+    this.socket.emit('location',{traceId,user:this._auth.getDecodeToken().user, location});
   }
 }

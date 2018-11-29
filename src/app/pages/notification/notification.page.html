@@ -19,6 +19,6 @@
         <ion-button>Decline</ion-button>
       </ion-buttons>
     </ion-item> -->
-    <notification-list *ngFor="let n of notifications" [notification]="n"></notification-list>
+    <notification-list *ngFor="let n of notifications" [notification]="n" (reload)="reload()"></notification-list>
   </ion-list>
 </ion-content>

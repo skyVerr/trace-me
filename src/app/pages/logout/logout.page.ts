@@ -16,7 +16,7 @@ export class LogoutPage implements OnInit {
 
   ngOnInit() {
     if(this._auth.logout()){
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('/login');
     }
   }
 

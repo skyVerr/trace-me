@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ContactsService } from '../../services/contacts.service';
 import { Contact } from '../../entities/contact.class';
 import { SocketService } from '../../services/socket.service';
@@ -11,12 +11,13 @@ import { SocketService } from '../../services/socket.service';
 })
 export class ContactsPage implements OnInit {
 
-  private contacts: Contact[];
+  contacts: Contact[];
 
   constructor(
     private alertController: AlertController,
     private contactsService: ContactsService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private toastController: ToastController
     ) { 
     this.socketService.newNotification().subscribe(data=>{
       this.loadContacts();
@@ -30,6 +31,17 @@ export class ContactsPage implements OnInit {
   private loadContacts(){
     this.contactsService.getContacts().subscribe(res=>{
       this.contacts = res;
+    });
+  }
+
+  onDelete(){
+    this.toastController.create({
+      message: 'Contact deleted',
+      duration: 2000
+    })
+    .then((toast)=>{
+      toast.present();
+      this.loadContacts();
     });
   }
 
