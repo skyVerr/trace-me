@@ -26,6 +26,10 @@ export class AppComponent {
       title: 'Notifications',
       url: '/notification',
       icon: 'notifications'
+    },{
+      title: 'Groups',
+      url:'/group',
+      icon: 'people'
     },
     {
       title: 'Logout',
@@ -45,9 +49,9 @@ export class AppComponent {
       this.presentToast(data.notification);
     });
 
-    this.socketService.traceReq().subscribe(data=>{
-      this.presentToast(data.notification);
-    });
+    // this.socketService.traceReq().subscribe(data=>{
+    //   this.presentToast(data.notification);
+    // });
   }
 
   initializeApp() {

@@ -19,7 +19,8 @@ export class TracePage implements OnInit {
   contactLng: number;
   contactName: string = 'testing';
 
-  traceId:number;
+  
+
 
   constructor(
     private geolocation: Geolocation, 
@@ -28,9 +29,13 @@ export class TracePage implements OnInit {
     private toastController: ToastController,
     private _auth: AuthenticationService
     ) {
+
+      this.socketService.joinTrace(this.activatedRoute.snapshot.paramMap.get('id'));
+
       this.socketService.userJoin().subscribe(user=>{
         this.presentToast(user['firstname']+' is now emitting location');
       });
+
 
       this.socketService.receiveLocation().subscribe(data=>{
         console.log(this._auth.getDecodeToken().user.user_id,  data.user.user_id);
@@ -44,33 +49,36 @@ export class TracePage implements OnInit {
           console.log(data);
         }
       });
+
+      this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
+        this.lat = resp.coords.latitude;
+        this.lng = resp.coords.longitude;
+        let location = {lat:resp.coords.latitude,lng:resp.coords.longitude};
+        this.socketService.sendLocation(this.activatedRoute.snapshot.paramMap.get('id'),location);
+        console.log('current location sent');
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+
+      let watch = this.geolocation.watchPosition({enableHighAccuracy: true});
+        watch.subscribe((data) => {
+        if(data!== undefined){
+          this.lat = data.coords.latitude;
+          this.lng = data.coords.longitude;
+          let location = {lat:data.coords.latitude,lng:data.coords.longitude};
+          this.socketService.sendLocation(this.activatedRoute.snapshot.paramMap.get('id'),location);
+          console.log('location sent to socket');
+        }
+      });
     }
+
+  
   
   ngOnInit() {
-    this.traceId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    console.log(this.activatedRoute.snapshot.paramMap.get('id'));
 
-    this.socketService.joinTrace(this.traceId);
 
-    this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
-      this.lat = resp.coords.latitude;
-      this.lng = resp.coords.longitude;
-      let location = {lat:resp.coords.latitude,lng:resp.coords.longitude};
-      this.socketService.sendLocation(this.traceId,location);
-      console.log('current location sent');
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
 
-   let watch = this.geolocation.watchPosition();
-      watch.subscribe((data) => {
-      if(data!== undefined){
-        this.lat = data.coords.latitude;
-        this.lng = data.coords.longitude;
-        let location = {lat:data.coords.latitude,lng:data.coords.longitude};
-        this.socketService.sendLocation(this.traceId,location);
-        console.log('send location');
-      }
-    });
   }
 
   async presentToast(message) {

@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Contacts</ion-title>
+    <ion-title>
+      Groups
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,9 +16,7 @@
 </ion-fab>
 
 <ion-content padding>
-
-  <ion-list *ngIf="contacts">
-    <contact-list *ngFor="let c of contacts" [contact]="c" (delete)="onDelete()"></contact-list>
+  <ion-list>
+    <group-list *ngFor="let g of groups" [group]="g"></group-list>
   </ion-list>
-
 </ion-content>

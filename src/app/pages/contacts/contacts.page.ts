@@ -19,13 +19,14 @@ export class ContactsPage implements OnInit {
     private socketService: SocketService,
     private toastController: ToastController
     ) { 
-    this.socketService.newNotification().subscribe(data=>{
-      this.loadContacts();
-    });
+   
   }
 
   ngOnInit() {
     this.loadContacts();
+    this.socketService.newNotification().subscribe(data=>{
+      this.loadContacts();
+    });
   }
 
   private loadContacts(){
@@ -34,14 +35,14 @@ export class ContactsPage implements OnInit {
     });
   }
 
-  onDelete(){
+  onDelete(contact){
+    this.contacts.splice(this.contacts.indexOf(contact),1);
     this.toastController.create({
       message: 'Contact deleted',
       duration: 2000
     })
     .then((toast)=>{
       toast.present();
-      this.loadContacts();
     });
   }
 

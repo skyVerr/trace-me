@@ -39,15 +39,15 @@ export class SocketService {
     return observable;
   }
 
-  traceReq(){
-    let observable = new Observable<{notification:String, body:Notification}>(observer => {
-      this.socket.on('traceReq', (data)=>{
-        observer.next(data);
-      });
-    });
+  // traceReq(){
+  //   let observable = new Observable<{notification:String, body:Notification}>(observer => {
+  //     this.socket.on('traceReq', (data)=>{
+  //       observer.next(data);
+  //     });
+  //   });
 
-    return observable;
-  }
+  //   return observable;
+  // }
 
   receiveLocation(){
     let observable = new Observable<any>(observer => {
