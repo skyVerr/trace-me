@@ -29,6 +29,16 @@ export class SocketService {
    this.socket.emit('join',{traceId, user: this._auth.getDecodeToken().user});
   }
 
+  getIdEvent(){
+    let observable = new Observable<any>(observer => {
+      this.socket.on('getId', (data)=>{
+        observer.next(data);
+      });
+    });
+
+    return observable;
+  }
+
   userJoin(){
     let observable = new Observable<{user: User}>(observer => {
       this.socket.on('user join', (data)=>{
