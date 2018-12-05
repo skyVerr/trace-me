@@ -25,8 +25,8 @@ import { NotificationService } from "./services/notification.service";
 import { ContactsService } from "./services/contacts.service";
 import { SocketService } from "./services/socket.service";
 
+//Native services
 import { Geolocation } from "@ionic-native/geolocation/ngx";
-import { Camera } from "@ionic-native/camera/ngx";
 
 
 
@@ -56,8 +56,7 @@ import { Camera } from "@ionic-native/camera/ngx";
     NotificationService,
     ContactsService,
     SocketService,
-    Geolocation,
-    Camera
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })

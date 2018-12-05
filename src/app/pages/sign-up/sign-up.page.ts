@@ -5,7 +5,6 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from "@angular/router";
 import { MenuController, ActionSheetController } from '@ionic/angular';
 import { SocketService } from '../../services/socket.service';
-import { Camera } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,15 +13,15 @@ import { Camera } from '@ionic-native/camera/ngx';
 })
 export class SignUpPage implements OnInit {
 
+
   chosenPicture:string = "assets/default.png";
+  imageFile;
 
   constructor(
     private _auth: AuthenticationService,
     private router: Router,
     private menu: MenuController,
-    private socketService: SocketService,
-    private camera: Camera,
-    private actionSheetController: ActionSheetController
+    private socketService: SocketService
     ) { }
 
   ngOnInit() {
@@ -30,7 +29,16 @@ export class SignUpPage implements OnInit {
   }
 
   onSubmit(f: NgForm){
-    this._auth.signUp({user:f.value}).subscribe(res => {
+    let formData = new FormData();
+
+    Object.keys(f.value).forEach(e =>{
+      formData.append(e,f.value[e]);
+    });
+    if(!!this.imageFile){
+      formData.append('profile_picture',this.imageFile);
+    }
+
+    this._auth.signUp(formData).subscribe(res => {
       // this.nativeStorage.setItem('token',res);
       localStorage.setItem('token',res['token']);
       this.socketService.socket.emit('setId',this._auth.getDecodeToken().user.user_id);
@@ -40,43 +48,24 @@ export class SignUpPage implements OnInit {
 
   }
 
-  async onClickPhoto(){
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Choose photo',
-      buttons: [{
-        text: 'Take a picture',
-        icon: 'camera',
-        handler: () => {
-          this.takePhoto(1);
-        }
-      }, {
-        text: 'Choose from gallery',
-        icon: 'images',
-        handler: () => {
-          this.takePhoto(0);
-        }
-      }]
-    });
-    await actionSheet.present();
+  // async onClickPhoto(){
+  //   const actionSheet = await this.actionSheetController.create({
+  //     header: 'Choose photo',
+  //     buttons: [{
+  //       text: 'Choose from gallery',
+  //       icon: 'images',
+  //       handler: () => {
+
+  //       }
+  //     }]
+  //   });
+  //   await actionSheet.present();
+  // }
+
+  imageInputChange(event){
+    this.chosenPicture = URL.createObjectURL(event.target.files[0]);
+    this.imageFile = event.target.files[0];
   }
 
-  takePhoto(sourceType:number){
-    const options: CameraOptions = {
-      quality: 50,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true,
-      sourceType:sourceType,
-    }
-
-    this.camera.getPicture(options).then((imageData) => {
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      console.log(imageData);     
-    }, (err) => {
-      // Handle error
-    });
-
-  }
 
 }
