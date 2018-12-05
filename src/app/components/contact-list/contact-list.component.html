@@ -3,7 +3,7 @@
     <!-- <img src="https://beta.ionicframework.com/docs/content/component-preview-app/docs-www/assets/img/avatar-finn.png"> -->
   </ion-avatar>
   <ion-label *ngIf="user">
-      <h1>{{ user.firstname }} {{ user.middlename }} {{ user.lastname }}</h1>
+      <h1>{{ user.firstname }} {{ user.lastname }}</h1>
       <h3>{{ user.email }}</h3>
   </ion-label>
   <ion-button icon-only fill="clear" (click)="presentActionSheet()" ><ion-icon name="more"></ion-icon></ion-button>

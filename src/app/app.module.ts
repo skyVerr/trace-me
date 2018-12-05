@@ -26,6 +26,8 @@ import { ContactsService } from "./services/contacts.service";
 import { SocketService } from "./services/socket.service";
 
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+import { Camera } from "@ionic-native/camera/ngx";
+
 
 
 @NgModule({
@@ -54,7 +56,8 @@ import { Geolocation } from "@ionic-native/geolocation/ngx";
     NotificationService,
     ContactsService,
     SocketService,
-    Geolocation
+    Geolocation,
+    Camera
   ],
   bootstrap: [AppComponent]
 })

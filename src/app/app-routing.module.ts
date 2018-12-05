@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule', canActivate: [AuthGuard] },
   { path: 'notification', loadChildren: './pages/notification/notification.module#NotificationPageModule', canActivate: [AuthGuard] },
   { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule' },
-  { path: 'trace/:id', loadChildren: './pages/trace/trace.module#TracePageModule', canActivate:[AuthGuard] }
+  { path: 'trace/:id', loadChildren: './pages/trace/trace.module#TracePageModule', canActivate:[AuthGuard] },
+  { path: 'group', loadChildren: './pages/group/group.module#GroupPageModule' }
 ];
 
 @NgModule({

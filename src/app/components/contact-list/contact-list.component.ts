@@ -55,7 +55,7 @@ export class ContactListComponent implements OnInit {
           this.notificationService.postNotification(notification).subscribe(data=>{
             this.toastController.create({
               message: 'Trace notification is sent',
-              duration: 2000
+              duration: 2000 
             })
             .then(toast=>{
               toast.present();
@@ -69,7 +69,7 @@ export class ContactListComponent implements OnInit {
         icon: 'trash',
         handler: () => {
           this.contactService.deleteContact(this.contact).subscribe(data=>{
-            this.delete.emit(null);
+            this.delete.emit(this.contact);
           });
         }
       }, {

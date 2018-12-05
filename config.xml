@@ -88,4 +88,8 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <engine name="android" spec="7.1.3" />
+    <plugin name="cordova-plugin-telerik-imagepicker" spec="~2.2.2">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="to pick profile picture" />
+    </plugin>
+    <plugin name="cordova-plugin-camera" spec="4.0.3" />
 </widget>

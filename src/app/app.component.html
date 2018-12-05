@@ -1,12 +1,22 @@
 <ion-app >
   <ion-split-pane >
     <ion-menu>
+
       <ion-header>
+<<<<<<< HEAD
         <ion-toolbar color="dark">
           <ion-title style="width: 50%;"> <ion-img src="/assets/icon/logo sidemenu.png"></ion-img></ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content color="dark">
+=======
+        <ion-toolbar>
+          <ion-title>Trace</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+>>>>>>> f2a4aca9f55c0a3fcb78c7749549a9a27b68be7c
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]"  color="dark">

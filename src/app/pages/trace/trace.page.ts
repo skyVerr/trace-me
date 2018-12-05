@@ -12,14 +12,10 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class TracePage implements OnInit {
 
+  usersLocation;
+
   lat: number = 14.8386;
   lng: number = 120.2842;
-
-  contactLat: number;
-  contactLng: number;
-  contactName: string = 'testing';
-
-  traceId:number;
 
   constructor(
     private geolocation: Geolocation, 
@@ -28,50 +24,80 @@ export class TracePage implements OnInit {
     private toastController: ToastController,
     private _auth: AuthenticationService
     ) {
+
+      this.usersLocation = new Array<any>();
+
+      this.socketService.joinTrace(this.activatedRoute.snapshot.paramMap.get('id'));
+
       this.socketService.userJoin().subscribe(user=>{
         this.presentToast(user['firstname']+' is now emitting location');
       });
 
+      this.socketService.getUserLeft().subscribe(user=>{
+        delete this.usersLocation[user.user_id];
+      });
+
+
       this.socketService.receiveLocation().subscribe(data=>{
         console.log(this._auth.getDecodeToken().user.user_id,  data.user.user_id);
+<<<<<<< HEAD
         
         if(this._auth.getDecodeToken().user.user_id == data.user.user_id){
           this.lat = data.location.lat;
           this.lng = data.location.lng;
+=======
+        this.lat = data.location.lat;
+        this.lng = data.location.lng;
+
+        var sameUserIndex = this.usersLocation.findIndex( userLoc=>{
+          return userLoc.user.user_id == data.user.user_id;
+        });
+
+        if(sameUserIndex == -1){
+          this.usersLocation.push(data);
+>>>>>>> f2a4aca9f55c0a3fcb78c7749549a9a27b68be7c
         } else {
-          this.contactLat = data.location.lat;
-          this.contactLng = data.location.lng;
-          this.contactName = data.user.firstname;
-          console.log(data);
+          this.usersLocation[sameUserIndex] = data;
+        }
+        console.log(sameUserIndex);
+        console.log(this.usersLocation.length);
+      });
+
+      this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
+        this.lat = resp.coords.latitude;
+        this.lng = resp.coords.longitude;
+        let location = {lat:resp.coords.latitude,lng:resp.coords.longitude};
+        this.socketService.sendLocation(this.activatedRoute.snapshot.paramMap.get('id'),location);
+        console.log('current location sent');
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+
+      let watch = this.geolocation.watchPosition({enableHighAccuracy: true});
+        watch.subscribe((data) => {
+        if(data!== undefined){
+          this.lat = data.coords.latitude;
+          this.lng = data.coords.longitude;
+          let location = {lat:data.coords.latitude,lng:data.coords.longitude};
+          this.socketService.sendLocation(this.activatedRoute.snapshot.paramMap.get('id'),location);
+          console.log('location sent to socket');
         }
       });
     }
+
+  
   
   ngOnInit() {
-    this.traceId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
-    this.socketService.joinTrace(this.traceId);
+  }
 
-    this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
-      this.lat = resp.coords.latitude;
-      this.lng = resp.coords.longitude;
-      let location = {lat:resp.coords.latitude,lng:resp.coords.longitude};
-      this.socketService.sendLocation(this.traceId,location);
-      console.log('current location sent');
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-
-   let watch = this.geolocation.watchPosition();
-      watch.subscribe((data) => {
-      if(data!== undefined){
-        this.lat = data.coords.latitude;
-        this.lng = data.coords.longitude;
-        let location = {lat:data.coords.latitude,lng:data.coords.longitude};
-        this.socketService.sendLocation(this.traceId,location);
-        console.log('send location');
-      }
-    });
+  ngOnDestroy(){
+    //leave the trace id he joined
+    this.socketService.socket
+      .emit('leave',{
+        traceId: this.activatedRoute.snapshot.paramMap.get('id'),
+        user: this._auth.getDecodeToken().user
+      });
   }
 
   async presentToast(message) {
