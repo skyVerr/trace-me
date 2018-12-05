@@ -34,6 +34,7 @@ export class TracePage implements OnInit {
 
       this.socketService.receiveLocation().subscribe(data=>{
         console.log(this._auth.getDecodeToken().user.user_id,  data.user.user_id);
+        
         if(this._auth.getDecodeToken().user.user_id == data.user.user_id){
           this.lat = data.location.lat;
           this.lng = data.location.lng;

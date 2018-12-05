@@ -38,7 +38,7 @@ export class NotificationListComponent implements OnInit {
           res2 => {
             this.from = res2;
             if(res.notification_type_id == 1){
-              this.message = `${this.from.firstname} ${this.from.lastname} wants to add you`;
+              this.message = ` ${this.from.firstname} ${this.from.lastname} wants to add you`;
             }
         });
     });

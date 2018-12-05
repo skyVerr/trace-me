@@ -1,9 +1,13 @@
+
 <ion-item *ngIf="notification">
-  <ion-label>
-    <h2>{{ type }}</h2>
-    <p>{{ message }}</p>
-  </ion-label>
-  <br>
-    <ion-button (click)="confirm()" fill="clear">Confirm</ion-button>
-    <ion-button (click)="decline()"  fill="clear">Decline</ion-button>
-</ion-item>
+    <img style="height: 70px" slot="start" src="https://avatars1.githubusercontent.com/u/22501055?s=460&v=4">
+    <ion-label >
+      <p text-wrap>
+        <span style="font-weight:bold ">{{message}}</span> 
+        
+       </p>
+       <p text-center><ion-button (click)="confirm()" fill="clear">Confirm</ion-button>
+        <ion-button color="danger" (click)="decline()"  fill="clear">Decline</ion-button></p>
+    </ion-label>
+    
+  </ion-item>
