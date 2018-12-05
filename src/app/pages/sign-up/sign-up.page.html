@@ -6,6 +6,7 @@
 
 <ion-content padding>
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-img (click)="onClickPhoto()" style="height:150px;width:150px;margin:0 auto" [src]="chosenPicture"></ion-img>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" required name="email" ngModel></ion-input>

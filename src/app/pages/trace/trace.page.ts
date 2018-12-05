@@ -12,15 +12,10 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class TracePage implements OnInit {
 
+  usersLocation;
+
   lat: number = 14.8386;
   lng: number = 120.2842;
-
-  contactLat: number;
-  contactLng: number;
-  contactName: string = 'testing';
-
-  
-
 
   constructor(
     private geolocation: Geolocation, 
@@ -30,24 +25,35 @@ export class TracePage implements OnInit {
     private _auth: AuthenticationService
     ) {
 
+      this.usersLocation = new Array<any>();
+
       this.socketService.joinTrace(this.activatedRoute.snapshot.paramMap.get('id'));
 
       this.socketService.userJoin().subscribe(user=>{
         this.presentToast(user['firstname']+' is now emitting location');
       });
 
+      this.socketService.getUserLeft().subscribe(user=>{
+        delete this.usersLocation[user.user_id];
+      });
+
 
       this.socketService.receiveLocation().subscribe(data=>{
         console.log(this._auth.getDecodeToken().user.user_id,  data.user.user_id);
-        if(this._auth.getDecodeToken().user.user_id == data.user.user_id){
-          this.lat = data.location.lat;
-          this.lng = data.location.lng;
+        this.lat = data.location.lat;
+        this.lng = data.location.lng;
+
+        var sameUserIndex = this.usersLocation.findIndex( userLoc=>{
+          return userLoc.user.user_id == data.user.user_id;
+        });
+
+        if(sameUserIndex == -1){
+          this.usersLocation.push(data);
         } else {
-          this.contactLat = data.location.lat;
-          this.contactLng = data.location.lng;
-          this.contactName = data.user.firstname;
-          console.log(data);
+          this.usersLocation[sameUserIndex] = data;
         }
+        console.log(sameUserIndex);
+        console.log(this.usersLocation.length);
       });
 
       this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
@@ -75,10 +81,16 @@ export class TracePage implements OnInit {
   
   
   ngOnInit() {
-    console.log(this.activatedRoute.snapshot.paramMap.get('id'));
 
+  }
 
-
+  ngOnDestroy(){
+    //leave the trace id he joined
+    this.socketService.socket
+      .emit('leave',{
+        traceId: this.activatedRoute.snapshot.paramMap.get('id'),
+        user: this._auth.getDecodeToken().user
+      });
   }
 
   async presentToast(message) {

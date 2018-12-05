@@ -29,6 +29,16 @@ export class SocketService {
    this.socket.emit('join',{traceId, user: this._auth.getDecodeToken().user});
   }
 
+  getUserLeft(){
+    let observable = new Observable<any>(observer => {
+      this.socket.on('user left', (data)=>{
+        observer.next(data);
+      });
+    });
+
+    return observable;
+  }
+
   getIdEvent(){
     let observable = new Observable<any>(observer => {
       this.socket.on('getId', (data)=>{
@@ -49,15 +59,6 @@ export class SocketService {
     return observable;
   }
 
-  // traceReq(){
-  //   let observable = new Observable<{notification:String, body:Notification}>(observer => {
-  //     this.socket.on('traceReq', (data)=>{
-  //       observer.next(data);
-  //     });
-  //   });
-
-  //   return observable;
-  // }
 
   receiveLocation(){
     let observable = new Observable<any>(observer => {
