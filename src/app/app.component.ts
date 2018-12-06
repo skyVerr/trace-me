@@ -21,7 +21,7 @@ export class AppComponent {
     {
       title: 'Contacts',
       url: '/contacts',
-      icon: 'contacts'
+      icon: 'contact'
     },
     {
       title: 'Notifications',

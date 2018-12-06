@@ -40,6 +40,12 @@ export class TracePage implements OnInit {
 
       this.socketService.receiveLocation().subscribe(data=>{
         console.log(this._auth.getDecodeToken().user.user_id,  data.user.user_id);
+<<<<<<< HEAD
+        
+        if(this._auth.getDecodeToken().user.user_id == data.user.user_id){
+          this.lat = data.location.lat;
+          this.lng = data.location.lng;
+=======
         this.lat = data.location.lat;
         this.lng = data.location.lng;
 
@@ -49,6 +55,7 @@ export class TracePage implements OnInit {
 
         if(sameUserIndex == -1){
           this.usersLocation.push(data);
+>>>>>>> f2a4aca9f55c0a3fcb78c7749549a9a27b68be7c
         } else {
           this.usersLocation[sameUserIndex] = data;
         }

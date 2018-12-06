@@ -3,13 +3,45 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title style="width:65px;"> <ion-img src="/assets/icon/logo.png"></ion-img></ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+<ion-content>
+  <div>
+    <ion-img src="https://media.wired.com/photos/59269cd37034dc5f91bec0f1/master/pass/GoogleMapTA.jpg"></ion-img>
+    <ion-item>
+      <ion-avatar>
+        <img src="https://cdn.iconscout.com/icon/free/png-256/avatar-369-456321.png">
+      </ion-avatar>
+      <ion-label text-wrap>
+        <ion-text style="color:#acacac;">
+          <p> Your Current Location</p>
+        </ion-text>
+        <!-- <h3> 41 Otero Mabayuan Olongapo City</h3> -->
+      </ion-label>
+    </ion-item>
+  </div>
+  <br>
+  <div class="about" padding>
+    <ion-text>
+      <h1> Keep an eye on your <br> loveones. </h1>
+    </ion-text>
+    <p >Trace your family member's location in realtime to make sure they are in safe place.</p>
+    <p >Stay Connected to the people who matter most.</p>
+  </div>
+  
+  <div class="howitworks" padding>
+    <ion-text>
+      <h1> How it works </h1>
+    </ion-text>
+    <ion-icon name="person-add" style="font-size:90px; color: #0f424f"></ion-icon>
+    <p style="color:#585858;">Add your loveones email address on your contact list and wait them to accept your request.</p>
+
+    <ion-icon name="contacts" style="font-size:90px; color: #0f424f"></ion-icon>
+    <p style="color:#585858;">Create a group and select from your contacts who's in.</p>
+    
+    <ion-icon name="pin" style="font-size:90px; color: #0f424f"></ion-icon>
+    <p style="color:#585858;">Start trace. You can control when to share. </p>
+  </div>
 </ion-content>
