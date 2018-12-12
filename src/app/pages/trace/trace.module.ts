@@ -21,7 +21,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyAUuGueymk1hn4V5t8kjo1uSMZKBihCYfU'}),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyBNbYgy4obXZxNzJZn3WUhbsS0Go6AQMSc'}),
     RouterModule.forChild(routes)
   ],
   declarations: [TracePage]

@@ -17,6 +17,9 @@ export class TracePage implements OnInit {
   lat: number = 14.8386;
   lng: number = 120.2842;
 
+  currentLat: number;
+  currentLng: number;
+
   constructor(
     private geolocation: Geolocation, 
     private activatedRoute: ActivatedRoute,
@@ -31,21 +34,21 @@ export class TracePage implements OnInit {
 
       this.socketService.userJoin().subscribe(user=>{
         this.presentToast(user['firstname']+' is now emitting location');
+        let location = {
+          lat: this.currentLat,
+          lng: this.currentLng
+        };
+
+        this.socketService.sendLocation(this.activatedRoute.snapshot.paramMap.get('id'),location);
       });
 
       this.socketService.getUserLeft().subscribe(user=>{
-        delete this.usersLocation[user.user_id];
+        this.usersLocation = this.usersLocation.filter(e=>e.user.user_id != user.user_id);
       });
 
 
       this.socketService.receiveLocation().subscribe(data=>{
         console.log(this._auth.getDecodeToken().user.user_id,  data.user.user_id);
-<<<<<<< HEAD
-        
-        if(this._auth.getDecodeToken().user.user_id == data.user.user_id){
-          this.lat = data.location.lat;
-          this.lng = data.location.lng;
-=======
         this.lat = data.location.lat;
         this.lng = data.location.lng;
 
@@ -55,7 +58,6 @@ export class TracePage implements OnInit {
 
         if(sameUserIndex == -1){
           this.usersLocation.push(data);
->>>>>>> f2a4aca9f55c0a3fcb78c7749549a9a27b68be7c
         } else {
           this.usersLocation[sameUserIndex] = data;
         }
@@ -64,11 +66,17 @@ export class TracePage implements OnInit {
       });
 
       this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then((resp) => {
+
         this.lat = resp.coords.latitude;
         this.lng = resp.coords.longitude;
+
+        this.currentLat = resp.coords.latitude;
+        this.currentLng = resp.coords.longitude;
+
         let location = {lat:resp.coords.latitude,lng:resp.coords.longitude};
         this.socketService.sendLocation(this.activatedRoute.snapshot.paramMap.get('id'),location);
         console.log('current location sent');
+
       }).catch((error) => {
         console.log('Error getting location', error);
       });
@@ -78,6 +86,8 @@ export class TracePage implements OnInit {
         if(data!== undefined){
           this.lat = data.coords.latitude;
           this.lng = data.coords.longitude;
+          this.currentLat = data.coords.latitude;
+          this.currentLng = data.coords.longitude;
           let location = {lat:data.coords.latitude,lng:data.coords.longitude};
           this.socketService.sendLocation(this.activatedRoute.snapshot.paramMap.get('id'),location);
           console.log('location sent to socket');
