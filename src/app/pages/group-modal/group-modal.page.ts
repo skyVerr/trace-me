@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Group } from '../../entities/group.class';
 import { GroupService } from '../../services/group.service';
 import { User } from '../../entities/user.class';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-group-modal',
@@ -16,18 +17,54 @@ export class GroupModalPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
     this.groupService.getGroupById(this.activatedRoute.snapshot.paramMap.get('id'))
       .subscribe(group => {
         this.group = group;
-        this.groupService.getUserByGroup(this.group)
-          .subscribe(users=>{
-            this.members = users;
-          });
+        this.loadGroup();
       });
+  }
+
+  loadGroup(){
+    this.groupService.getUserByGroup(this.group)
+    .subscribe(users=>{
+      this.members = users;
+    });
+  }
+
+  async presentAlertPrompt() {
+    const alert = await this.alertController.create({
+      header: 'User Email',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.alertController.dismiss();
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            this.groupService.createGroup(data).subscribe(data=>{
+              this.loadGroup();
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }
