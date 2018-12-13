@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Component, OnInit, Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { Group } from '../../entities/group.class';
@@ -6,11 +5,6 @@ import { ActionSheetController } from '@ionic/angular';
 import { GroupService } from '../../services/group.service';
 import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-=======
-import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
-import { Group } from '../../entities/group.class';
->>>>>>> master
 
 @Component({
   selector: 'group-list',
@@ -20,7 +14,6 @@ import { Group } from '../../entities/group.class';
 export class GroupListComponent implements OnInit {
 
   @Input() group: Group;
-<<<<<<< HEAD
   @Output() reload: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -70,12 +63,6 @@ export class GroupListComponent implements OnInit {
       }]
     });
     await actionSheet.present();
-=======
-
-  constructor() { }
-
-  ngOnInit() {
->>>>>>> master
   }
 
 }
