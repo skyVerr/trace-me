@@ -16,7 +16,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate():boolean{
     if (this._auth.loggedIn()) {
-      this.socketService.socket.emit('setId',this._auth.getDecodeToken().user.user_id);
       return true;
     } else {
       this.router.navigate(['/login']);

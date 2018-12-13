@@ -25,7 +25,9 @@ import { NotificationService } from "./services/notification.service";
 import { ContactsService } from "./services/contacts.service";
 import { SocketService } from "./services/socket.service";
 
+//Native services
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+
 
 
 @NgModule({

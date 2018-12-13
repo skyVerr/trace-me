@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Api } from "../entities/api.class";
 import { Observable } from 'rxjs';
 import { Group } from '../entities/group.class';
 import { User } from '../entities/user.class';
+=======
+import { HttpClient } from '@angular/common/http';
+import { Api } from "../entities/api.class";
+import { Observable } from 'rxjs';
+import { Group } from '../entities/group.class';
+>>>>>>> c60c18a69d36ce8edfa55c7620a2f1b36544c45b
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +27,7 @@ export class GroupService {
     return this.http.get<Group[]>(Api.API_URL+'group');
   }
 
+<<<<<<< HEAD
   getGroupById(id):Observable<Group>{
     return this.http.get<Group>(Api.API_URL+'group/'+id);
   }
@@ -48,4 +56,6 @@ export class GroupService {
     return this.http.get<User[]>(Api.API_URL+'group/user/'+group.group_id);
   }
 
+=======
+>>>>>>> c60c18a69d36ce8edfa55c7620a2f1b36544c45b
 }

@@ -5,14 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TracePage } from './trace.page';
+import { GroupPage } from './group.page';
 
-import { AgmCoreModule } from "@agm/core";
+import { GroupListComponent } from "../../components/group-list/group-list.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: TracePage
+    component: GroupPage
   }
 ];
 
@@ -21,9 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyBNbYgy4obXZxNzJZn3WUhbsS0Go6AQMSc'}),
     RouterModule.forChild(routes)
   ],
-  declarations: [TracePage]
+  declarations: [GroupPage,GroupListComponent]
 })
-export class TracePageModule {}
+export class GroupPageModule {}

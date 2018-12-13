@@ -22,9 +22,12 @@ export class NotificationService {
     return this.http.post(Api.API_URL+'notification',notification);
   }
 
+  confirmNotificaion(notification){
+    return this.http.post(Api.API_URL+'notification/confirm',notification);
+  }
+
   declineNotification(notification){
     return this.http.post(Api.API_URL+'notification/decline',notification);
   }
-
 
 }

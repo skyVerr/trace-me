@@ -38,21 +38,28 @@ export class NotificationListComponent implements OnInit {
           res2 => {
             this.from = res2;
             if(res.notification_type_id == 1){
-              this.message = `${this.from.firstname} ${this.from.lastname} wants to add you`;
+              this.message = ` ${this.from.firstname} ${this.from.lastname} wants to add you`;
+            }
+            if(res.notification_type_id == 2){
+              this.message = `${this.from.firstname} ${this.from.lastname} wants to trace you`;
             }
         });
     });
   } 
 
   confirm(){
-    if(this.notification.notification_type_id ==1){
+    if(this.notification.notification_type_id==1){
       this.notification.isConfirm = true;
-      this.contactService.postContactConfirm({notification: this.notification}).subscribe();
+      this.notificationService.confirmNotificaion({notification: this.notification})
+        .subscribe((data)=>{
+          this.reload.emit(null);
+        });
     }
-    if(this.notification.notification_type_id ==2){
-      this.notificationService.declineNotification(this.notification).subscribe(data=>{
-        this.router.navigateByUrl('/trace/s'+this.notification.user_id);
-      });
+    if(this.notification.notification_type_id==2){
+      this.notificationService.confirmNotificaion({notification: this.notification})
+        .subscribe(data=>{
+          this.router.navigateByUrl('/trace/s'+this.notification.user_id);
+        });
     }
   }
 

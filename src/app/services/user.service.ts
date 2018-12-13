@@ -14,4 +14,8 @@ export class UserService {
   getUserbyId(id):Observable<User>{
     return this.http.get<User>(Api.API_URL+'user/'+id);
   }
+
+  fetchMarker(imageUrl){
+    return this.http.get(Api.API_URL+'merge-photo?image='+imageUrl);
+  }
 }

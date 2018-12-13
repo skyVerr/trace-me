@@ -1,10 +1,7 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Sign Up</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content padding>
+    <ion-img style=" margin: auto" src="/assets/icon/mainlogo.png"></ion-img>
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <input type="file" #imageinput style="visibility: hidden;" (change)="imageInputChange($event)">
     <ion-img (click)="imageinput.click()" style="height:150px;width:150px;margin:0 auto" [src]="chosenPicture"></ion-img>
@@ -21,18 +18,14 @@
       <ion-input type="text" required name="lastname" ngModel></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Middle name</ion-label>
-      <ion-input type="text" required name="middlename" ngModel></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password" required name="password" ngModel></ion-input>
     </ion-item>
 
     <br>
 
-    <ion-button shape="round" expand="full" color="primary" type="submit">Sign me in!</ion-button>
+    <ion-button shape="round" expand="full" color="favorite" type="submit">Sign me in!</ion-button>
   </form>
-  <p text-center>Have an account? <a href="./login">Login here</a></p>
+  <p text-center>Have an account? <a href="./login" style="text-decoration:none; color: #178ab2">Login here</a></p>
 
 </ion-content>
