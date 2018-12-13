@@ -3,8 +3,8 @@
 <ion-content padding>
     <ion-img style=" margin: auto" src="/assets/icon/mainlogo.png"></ion-img>
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <!-- <input type="file" #imageinput style="visibility: hidden;" (change)="imageInputChange($event)">
-    <ion-img (click)="imageinput.click()" style="height:150px;width:150px;margin:0 auto" [src]="chosenPicture"></ion-img> -->
+    <input type="file" #imageinput style="visibility: hidden;" (change)="imageInputChange($event)">
+    <ion-img (click)="imageinput.click()" style="height:150px;width:150px;margin:0 auto" [src]="chosenPicture"></ion-img>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" required name="email" ngModel></ion-input>
