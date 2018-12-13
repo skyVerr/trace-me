@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/group"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ group?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="presentAlertPrompt()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab> -->
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let m of members">
+      <ion-avatar slot="start">
+        <ion-img [src]="m.profile_picture"></ion-img>
+      </ion-avatar>
+      <ion-label>
+        {{ m.firstname }} {{ m.lastname }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

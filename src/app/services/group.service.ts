@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Api } from "../entities/api.class";
 import { Observable } from 'rxjs';
@@ -11,6 +12,13 @@ import { Api } from "../entities/api.class";
 import { Observable } from 'rxjs';
 import { Group } from '../entities/group.class';
 >>>>>>> c60c18a69d36ce8edfa55c7620a2f1b36544c45b
+=======
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Api } from "../entities/api.class";
+import { Observable } from 'rxjs';
+import { Group } from '../entities/group.class';
+import { User } from '../entities/user.class';
+>>>>>>> ui-shane
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +36,9 @@ export class GroupService {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ui-shane
   getGroupById(id):Observable<Group>{
     return this.http.get<Group>(Api.API_URL+'group/'+id);
   }
@@ -49,13 +60,16 @@ export class GroupService {
   }
 
   addUser(group:Group, email){
-    return this.http.post(Api.API_URL+'group/'+'user',{})
+    return this.http.post(Api.API_URL+'group/'+'user',{group,email});
   }
 
   getUserByGroup(group:Group):Observable<User[]>{
     return this.http.get<User[]>(Api.API_URL+'group/user/'+group.group_id);
   }
 
+<<<<<<< HEAD
 =======
 >>>>>>> c60c18a69d36ce8edfa55c7620a2f1b36544c45b
+=======
+>>>>>>> ui-shane
 }

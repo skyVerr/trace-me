@@ -12,12 +12,9 @@ const routes: Routes = [
   { path: 'notification', loadChildren: './pages/notification/notification.module#NotificationPageModule', canActivate: [AuthGuard] },
   { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule' },
   { path: 'trace/:id', loadChildren: './pages/trace/trace.module#TracePageModule', canActivate:[AuthGuard] },
-<<<<<<< HEAD
   { path: 'group', loadChildren: './pages/group/group.module#GroupPageModule' },
   { path: 'group/:id', loadChildren: './pages/group-modal/group-modal.module#GroupModalPageModule' }
-=======
-  { path: 'group', loadChildren: './pages/group/group.module#GroupPageModule' }
->>>>>>> c60c18a69d36ce8edfa55c7620a2f1b36544c45b
+
 ];
 
 @NgModule({
