@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
 import { GroupService } from '../../services/group.service';
 import { Group } from '../../entities/group.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-group',
@@ -14,7 +15,9 @@ export class GroupPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private changeDetectionRef:ChangeDetectorRef,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -25,8 +28,13 @@ export class GroupPage implements OnInit {
     this.groupService.getGroup()
       .subscribe(data=>{
         this.groups = data;
-        console.log(this.groups);
+        this.changeDetectionRef.detectChanges();
       });
+  }
+
+
+  onReload(){
+    this.loadGroup();
   }
 
   async presentAlertPrompt() {
@@ -50,7 +58,7 @@ export class GroupPage implements OnInit {
           text: 'Ok',
           handler: (data) => {
             this.groupService.createGroup(data).subscribe(data=>{
-              console.log(data);
+              this.loadGroup();
             });
           }
         }

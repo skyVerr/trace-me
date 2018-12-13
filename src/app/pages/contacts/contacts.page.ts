@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ContactsService } from '../../services/contacts.service';
 import { Contact } from '../../entities/contact.class';
@@ -17,7 +17,8 @@ export class ContactsPage implements OnInit {
     private alertController: AlertController,
     private contactsService: ContactsService,
     private socketService: SocketService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private changeDetectionRef:ChangeDetectorRef
     ) { 
    
   }
@@ -32,6 +33,7 @@ export class ContactsPage implements OnInit {
   private loadContacts(){
     this.contactsService.getContacts().subscribe(res=>{
       this.contacts = res;
+      this.changeDetectionRef.detectChanges();
     });
   }
 

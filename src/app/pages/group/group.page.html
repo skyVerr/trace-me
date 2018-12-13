@@ -17,6 +17,6 @@
 
 <ion-content padding>
   <ion-list>
-    <group-list *ngFor="let g of groups" [group]="g"></group-list>
+    <group-list *ngFor="let g of groups" [group]="g" (reload)="onReload()"  ></group-list>
   </ion-list>
 </ion-content>

@@ -1,1 +1,6 @@
-<ion-item>{{ group.name }}</ion-item>
+<ion-item>
+    <ion-label>
+        {{ group.name }}
+    </ion-label>
+    <ion-button icon-only fill="clear" (click)="presentActionSheet()" ><ion-icon name="more"></ion-icon></ion-button>
+</ion-item>
