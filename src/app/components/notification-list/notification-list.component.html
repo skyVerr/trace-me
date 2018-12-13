@@ -1,6 +1,6 @@
 
 <ion-item *ngIf="notification">
-    <img style="height: 70px" slot="start" src="https://avatars1.githubusercontent.com/u/22501055?s=460&v=4">
+    <img style="height: 70px" slot="start" [src]="from?.profile_picture">
     <ion-label >
       <p text-wrap>
         <span style="font-weight:bold ">{{message}}</span> 
@@ -10,4 +10,4 @@
         <ion-button color="danger" (click)="decline()"  fill="clear">Decline</ion-button></p>
     </ion-label>
     
-  </ion-item>
+</ion-item>

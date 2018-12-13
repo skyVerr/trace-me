@@ -40,6 +40,9 @@ export class NotificationListComponent implements OnInit {
             if(res.notification_type_id == 1){
               this.message = ` ${this.from.firstname} ${this.from.lastname} wants to add you`;
             }
+            if(res.notification_type_id == 2){
+              this.message = `${this.from.firstname} ${this.from.lastname} wants to trace you`;
+            }
         });
     });
   } 

@@ -3,4 +3,5 @@ export class User {
     firstname:string;
     lastname:string;
     user_id:number;
+    profile_picture: string;
 }

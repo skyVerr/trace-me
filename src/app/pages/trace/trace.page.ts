@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../services/authentication.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-trace',
@@ -14,8 +15,8 @@ export class TracePage implements OnInit {
 
   usersLocation;
 
-  lat: number = 14.8386;
-  lng: number = 120.2842;
+  lat: number;
+  lng: number;
 
   currentLat: number;
   currentLng: number;
@@ -25,7 +26,8 @@ export class TracePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private socketService: SocketService,
     private toastController: ToastController,
-    private _auth: AuthenticationService
+    private _auth: AuthenticationService,
+    private userService: UserService
     ) {
 
       this.usersLocation = new Array<any>();
@@ -51,6 +53,10 @@ export class TracePage implements OnInit {
         console.log(this._auth.getDecodeToken().user.user_id,  data.user.user_id);
         this.lat = data.location.lat;
         this.lng = data.location.lng;
+
+        this.userService.fetchMarker(data.user.profile_picture).subscribe(res=>{
+          data.user.profile_picture = res['result'];
+        });
 
         var sameUserIndex = this.usersLocation.findIndex( userLoc=>{
           return userLoc.user.user_id == data.user.user_id;

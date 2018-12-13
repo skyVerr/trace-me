@@ -8,10 +8,11 @@
 </ion-header>
 <ion-content>
   <agm-map [latitude]="lat" [longitude]="lng">
-
-      <agm-marker *ngFor="let u of usersLocation" [latitude]="u.location?.lat" [longitude]="u.location?.lng" >
+      <agm-marker *ngFor="let u of usersLocation" 
+      [latitude]="u.location?.lat" 
+      [longitude]="u.location?.lng" 
+      [iconUrl]="u.user?.profile_picture">
         <agm-info-window>{{ u.user.firstname }}</agm-info-window>
-      </agm-marker>
-    
+      </agm-marker>    
   </agm-map>
 </ion-content>
